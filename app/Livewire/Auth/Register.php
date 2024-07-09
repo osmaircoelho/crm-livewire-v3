@@ -20,9 +20,15 @@ class Register extends Component
 
     #[Rule(['required'])]
     public ?string $password = null;
+
+    public function mount()
+    {
+
+    }
     public function render(): View
     {
-        return view('livewire.auth.register');
+        return view('livewire.auth.register')
+            ->layout('components.layouts.guest');
     }
 
     public function submit(): void
