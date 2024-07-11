@@ -1,3 +1,8 @@
 <div>
-    {{-- If you look to others for fulfillment, you will never truly be fulfilled. --}}
+    <x-button
+        tooltip-left="logoff"
+        icon="o-power"
+        class="btn-circle btn-ghost btn-xs"
+        wire:click="logout"
+    />
 </div>
