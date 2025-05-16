@@ -7,8 +7,7 @@ use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\{DB, Hash, Password};
 use Illuminate\Support\Str;
-use Livewire\Attributes\Computed;
-use Livewire\Attributes\Rule;
+use Livewire\Attributes\{Computed, Layout, Rule};
 use Livewire\Component;
 
 class Reset extends Component
@@ -37,7 +36,7 @@ class Reset extends Component
             $this->redirectRoute('login');
         }
     }
-
+    #[Layout('components.layouts.guest')]
     public function render(): View
     {
         return view('livewire.auth.password.reset');
@@ -60,7 +59,13 @@ class Reset extends Component
 
         session()->flash('status', __($status));
 
-        $this->redirect(route('dashboard'));
+        if ($status != Password::PASSWORD_RESET) {
+            return;
+        }
+
+        session()->flash('status', __($status));
+
+        $this->redirect(route('login'));
     }
 
     #[Computed]
