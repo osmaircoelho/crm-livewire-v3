@@ -56,3 +56,26 @@ test('should block the access to an admin page if the user does not hava the per
         ->assertForbidden();
 
 });
+
+test('lets make sure that we are using cache to store user permissions', function () {
+    $user = User::factory()->create();
+
+    $user->givePermissionTo('be an admin');
+
+    $cacheKey = "user::{$user->id}::permissions";
+
+    expect(\Illuminate\Support\Facades\Cache::has($cacheKey))->toBeTrue('Checking if cache has the key')
+        ->and(\Illuminate\Support\Facades\Cache::get($cacheKey))->toBe($user->permissions, 'Checking if permissions are the same as the user');
+});
+
+test('lets make sure that we are using the cache the retrieve/check when the user has the given permission', function () {
+    $user = User::factory()->create();
+
+    $user->givePermissionTo('be an admin');
+
+    // Verificar que eu nao teve nenhum hit no bd a partir desse ponto
+    DB::listen(fn ($query) => throw new Exception('We got a hit'));
+    $user->hasPermissionTo('be an admin');
+
+    expect(true)->toBeTrue();
+});
