@@ -1,7 +1,10 @@
 <?php
 
 // criar rotas utiliza it
+use App\Livewire\Admin;
 use App\Models\User;
+
+use Illuminate\Pagination\LengthAwarePaginator;
 
 use function Pest\Laravel\{actingAs, get};
 
@@ -16,4 +19,22 @@ test('making sure that the route is protected by the permission BE_AN_ADMIN', fu
 
     get(route('admin.users'))
         ->assertForbidden();
+});
+
+test('lets create a livewire componet to list all users in the page', function () {
+
+    $users = User::factory()->count(10)->create();
+
+    $lw = Livewire::test(Admin\Users\Index::class);
+    $lw->assertSet('users', function ($users) {
+        expect($users)
+            ->toBeInstanceOf(LengthAwarePaginator::class)
+        ->toHaveCount(10);
+
+        return true;
+    });
+
+    foreach ($users as $user) {
+        $lw->assertSee($user->name);
+    }
 });
