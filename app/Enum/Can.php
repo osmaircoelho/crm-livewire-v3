@@ -4,5 +4,5 @@ namespace App\Enum;
 
 enum Can: string
 {
-    case BE_AN_ADMIN = 'be_an_admin';
+    case BE_AN_ADMIN = 'be an admin';
 }
