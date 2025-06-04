@@ -5,7 +5,7 @@ parameters:
     paths:
         - app/
     level: 5
-     ignoreErrors:
-            - identifier: missingType.iterableValue
-    reportUnmatchedIgnoredErrors: true # Mostra erros que estão sendo ignorados
-    # checkMissingIterableValueType: false # Desativa checagem opcional que pode causar falsos positivos
+    ignoreErrors:
+        # - identifier: missingType.iterableValue
+    reportUnmatchedIgnoredErrors: true
+    # checkMissingIterableValueType: false  # Remova ou comente essa linha

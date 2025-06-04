@@ -7,11 +7,11 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
-        "laravel/framework": "^10.48",
+        "laravel/framework": "^10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.5",
-        "robsontenorio/mary": "^0"
+        "robsontenorio/mary": "^1.34"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.0",
@@ -50,6 +50,7 @@
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
+            "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta",
             "@php artisan ide-helper:models",
             "@php artisan ide-helper:eloquent"
