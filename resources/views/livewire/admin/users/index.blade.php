@@ -1,20 +1,25 @@
 <div>
     <x-header title="Users" separator/>
 
-    <div class="flex space-x-4 mb-4">
+    <div class="mb-4 flex space-x-4">
         <div class="w-1/3">
             <x-input
+                label="Search by email or name"
                 icon="o-magnifying-glass"
-                class="input-sm"
-                placeholder="Search by email and name"
                 wire:model.live="search"
             />
         </div>
-        <div>
-            <x-select class="select-sm">
 
-            </x-select>
-        </div>
+
+        <x-choices
+            Label="Search by Permissions"
+            wire:model.live="search_permissions"
+            :options="$permissionsToSearch"
+            option-label="key"
+            search-function="filterPermissions"
+            searchable
+            no-result-text="Nothing here"
+        />
 
     </div>
 
