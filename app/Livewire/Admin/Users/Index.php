@@ -20,6 +20,8 @@ class Index extends Component
 
     public array $search_permissions = [];
 
+    public bool $search_trash = false;
+
     public Collection $permissionsToSearch;
 
     public function mount(): void
@@ -60,6 +62,10 @@ class Index extends Component
                     $q->whereIn('id', $this->search_permissions);
                 })
             )
+            ->when(
+                $this->search_trash,
+                fn (Builder $q) => $q->onlyTrashed()
+            )
             ->get();
     }
 
@@ -81,8 +87,8 @@ class Index extends Component
                 $value,
                 fn (Builder $q) => $q->where('key', 'like', '%' . $value . '%')
             )
-                ->orderBy('key')
-                ->get();
+            ->orderBy('key')
+            ->get();
     }
 
 }
