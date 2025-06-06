@@ -24,6 +24,10 @@ class Index extends Component
 
     public Collection $permissionsToSearch;
 
+    public string $sortDirection = 'asc';
+
+    public string $sortColumnBy = 'id';
+
     public function mount(): void
     {
         $this->authorize(Can::BE_AN_ADMIN->value);
@@ -66,6 +70,7 @@ class Index extends Component
                 $this->search_trash,
                 fn (Builder $q) => $q->onlyTrashed()
             )
+            ->orderBy($this->sortColumnBy, $this->sortDirection)
             ->get();
     }
 
