@@ -155,3 +155,25 @@ it('should be able to sort by name', function () {
             return true;
         });
 });
+
+it('should be able to paginate the result', function () {
+    $admin = User::factory()->admin()->create(['name' => 'Joe Doe', 'email' => 'admin@gmail.com']);
+    User::factory()->withPermission(Can::TESTING)->count(30)->create();
+
+    actingAs($admin);
+
+    Livewire::test(Admin\Users\Index::class)
+        ->assertSet('users', function (LengthAwarePaginator $users) {
+            expect($users)
+                ->toHaveCount(15);
+
+            return true;
+        })
+        ->set('perPage', 15)
+        ->assertSet('users', function (LengthAwarePaginator $users) {
+            expect($users)
+                ->toHaveCount(15);
+
+            return true;
+        });
+});
