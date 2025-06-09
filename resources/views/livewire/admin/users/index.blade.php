@@ -72,8 +72,8 @@
 
    </x-table>
 
-    <div>
+
         {{ $this->users->links() }}
-    </div>
+
 
 </div>
