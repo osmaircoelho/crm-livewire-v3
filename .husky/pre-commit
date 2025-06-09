@@ -36,7 +36,7 @@ do
 done;
 
 if [ "$TOTAL_FILES" -gt 0 ]; then
-    echo "✨ Todos os arquivos foram formatados com sucesso!"
+    echo "✨ Todos os arquivos foram formatados com sucesso! \n"
 fi;
 
 exit 0;

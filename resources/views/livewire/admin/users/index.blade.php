@@ -29,6 +29,16 @@
             right tight
         />
 
+        <x-select
+            wire:model.live="perPage"
+            :options="[
+                    ['id' => 5, 'name' => 5],
+                    ['id' => 15, 'name' => 15],
+                    ['id' => 25, 'name' => 25],
+                    ['id' => 50, 'name' => 50]
+            ]"
+            label="Record Per Page"
+        />
 
     </div>
 
@@ -61,4 +71,9 @@
         @endscope
 
    </x-table>
+
+    <div>
+        {{ $this->users->links() }}
+    </div>
+
 </div>
