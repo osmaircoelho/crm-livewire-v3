@@ -10,9 +10,9 @@ use Livewire\Component;
 
 class Login extends Component
 {
-    public ?string $email = null;
+    public ?string $email = "admin@crm.com";
 
-    public ?string $password = null;
+    public ?string $password = "password";
 
     #[Layout('components.layouts.guest')]
     public function render(): View
@@ -22,7 +22,7 @@ class Login extends Component
 
     public function tryToLogin(): void
     {
-        if($this->ensureIsNotRateLimiting()) {
+        if ($this->ensureIsNotRateLimiting()) {
             return;
         }
 
