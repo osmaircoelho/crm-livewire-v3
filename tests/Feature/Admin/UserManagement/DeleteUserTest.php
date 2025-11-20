@@ -41,3 +41,18 @@ it('should hava a confirmation before the deletion', function () {
     assertNotSoftDeleted('users', ['id' => $forDeletion->id]);
 
 });
+
+it('should send a notification to the user telling him that he has no long access to the application ', function () {
+
+    Notification::fake();
+    $user        = User::factory()->admin()->create();
+    $forDeletion = User::factory()->create();
+
+    actingAs($user);
+
+    Livewire::test(Admin\Users\Delete::class, ['user' => $forDeletion])
+        ->set('confirmation_confirmation', 'DART VADER')
+        ->call('destroy');
+
+    Notification::assertSentTo($forDeletion, \App\Notifications\UserDeletedNotificaion::class);
+});
