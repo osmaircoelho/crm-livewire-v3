@@ -14,12 +14,13 @@
            class="input-sm"
            label="Write `DART VADER` to confirm the deletion"
            wire:model="confirmation_confirmation"
+           wire:keydown.enter="destroy"
            />
 
 
        <x-slot:actions>
            <x-button label="Cancel" @click="$wire.modal = false" />
-           <x-button label="Confirm" class="btn-primary" wire:click="destroy" />
+           <x-button label="Confirm" spinner class="btn-primary" wire:click="destroy" />
        </x-slot:actions>
 
    </x-modal>
