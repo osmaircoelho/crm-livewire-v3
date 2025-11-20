@@ -23,7 +23,7 @@ class UserDeletedNotificaion extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage())
-                    ->line('You no longer hava access to the ' . config('app.name'))
+                    ->line('You no longer have access to the ' . config('app.name'))
 
                     ->line('Thank you for using our application! 🖖🏽');
     }
