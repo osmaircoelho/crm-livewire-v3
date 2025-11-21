@@ -1,5 +1,5 @@
 <div>
-    <x-header title="Users" separator/>
+    <x-header title="Users" separator />
 
     <div class="mb-4 flex space-x-4">
         <div class="w-1/3">
@@ -12,8 +12,7 @@
 
 
         <x-choices
-            class="select-primary"
-            Label="Search by Permissions"
+            label="Search by Permissions"
             wire:model.live="search_permissions"
             :options="$permissionsToSearch"
             option-label="key"
@@ -75,7 +74,9 @@
                     />
                 @endunless
             @else
-                <x-button icon="o-arrow-path-rounded-square" wire:click="restore({{ $user->id }})" spinner
+                <x-button icon="o-arrow-path-rounded-square"
+                          wire:click="restore({{ $user->id }})"
+                          spinner
                           class="btn-sm btn-success btn-ghost" />
             @endunless
         @endcan
@@ -84,4 +85,5 @@
    </x-table>
         {{ $this->users->links(data: ['scrollTo' => false]) }}
         <livewire:admin.users.delete />
+        <livewire:admin.users.restore />
 </div>
