@@ -18,12 +18,13 @@ it('should be able to delete a user', function () {
         ->call('destroy')
         ->assertDispatched('user::deleted');
 
-    assertSoftDeleted(
-        'users',
-        [
-            'id' => $forDeletion->id,
-        ]
-    );
+    assertSoftDeleted('users', ['id' => $forDeletion->id]);
+
+    $forDeletion->refresh();
+
+    expect($forDeletion)
+        ->deletedBy->id
+        ->toBe($user->id);
 
 });
 
