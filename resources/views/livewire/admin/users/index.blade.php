@@ -66,6 +66,7 @@
         <div class="flex items-center space-x-2">
             <x-button
                 id="show-btn-{{ $user->id }}"
+                title="Showing {{ $user->name  }}'s details "
                 wire:key="show-btn-{{ $user->id }}"
                 icon="o-eye"
                 wire:click="showUser('{{ $user->id }}')"
@@ -78,6 +79,7 @@
                     @unless($user->is(auth()->user()))
                         <x-button
                             id="delete-btn-{{ $user->id }}"
+                            title="Delete {{ $user->name }}"
                             wire:key="delete-btn-{{ $user->id }}"
                             icon="o-trash"
                             wire:click="destroy('{{ $user->id }}')"
@@ -87,6 +89,7 @@
                     @endunless
                 @else
                     <x-button icon="o-arrow-path-rounded-square"
+                              title="Restore {{ $user->name }}"
                               wire:click="restore({{ $user->id }})"
                               spinner
                               class="btn-sm btn-success btn-ghost"/>
