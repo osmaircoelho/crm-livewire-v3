@@ -48,3 +48,19 @@ it('should open the modal when the event is dispatched', function () {
     /*    $lwShow->assertSet('modal', true)
                 ->assertSet('user.id', $this->userDeleted->id);*/
 });
+
+it('making sure that the method loadUser has the attribute On', function () {
+    $reflection = new ReflectionClass(Admin\Users\Show::class);
+
+    $attributes = $reflection->getMethod('loadUser')->getAttributes();
+
+    expect(count($attributes))->toBe(1);
+
+    $attribute = $attributes[0];
+
+    expect($attribute)->getName()->toBe('Livewire\Attributes\On')
+        ->and($attribute->getArguments())->toHaveCount(1);
+
+    $argument = $attribute->getArguments()[0];
+    expect($argument)->toBe('user::show');
+});
