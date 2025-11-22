@@ -86,4 +86,5 @@
         {{ $this->users->links(data: ['scrollTo' => false]) }}
         <livewire:admin.users.delete />
         <livewire:admin.users.restore />
+        <livewire:admin.users.show />
 </div>

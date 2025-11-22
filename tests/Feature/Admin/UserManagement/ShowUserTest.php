@@ -34,3 +34,17 @@ it('should be able to show all the details of the user in the component', functi
         ->assertSee($userDeleted->deletedBy->name);
 
 });
+
+it('should open the modal when the event is dispatched', function () {
+
+    $lwShow = Livewire::test(Admin\Users\Show::class)
+        ->assertSet('user', null)
+        ->assertSet('modal', false);
+
+    Livewire::test(Admin\Users\Index::class)
+        ->call('showUser', $this->userDeleted->id)
+        ->assertDispatched('user::show', id: $this->userDeleted->id);
+
+    /*    $lwShow->assertSet('modal', true)
+                ->assertSet('user.id', $this->userDeleted->id);*/
+});
