@@ -1,5 +1,5 @@
 <div>
-    <x-header title="Users" separator />
+    <x-header title="Users" separator/>
 
     <div class="mb-4 flex space-x-4">
         <div class="w-1/3">
@@ -43,47 +43,64 @@
 
     <x-table :headers="$this->headers" :rows="$this->users">
         @scope('header_id', $header)
-        <x-table.th :$header name="id" />
+        <x-table.th :$header name="id"/>
         @endscope
 
         @scope('header_name', $header)
-        <x-table.th :$header name="name" />
+        <x-table.th :$header name="name"/>
         @endscope
 
         @scope('header_email', $header)
-        <x-table.th :$header name="email" />
+        <x-table.th :$header name="email"/>
         @endscope
 
         @scope('cell_permissions', $user)
         @foreach($user->permissions as $permission)
-            <x-badge :value="$permission->key" class="badge-primary" />
+            <x-badge :value="$permission->key" class="badge-primary"/>
         @endforeach
         @endscope
 
         @scope('actions', $user)
-        @can(\App\Enum\Can::BE_AN_ADMIN->value)
-            @unless($user->trashed())
-                @unless($user->is(auth()->user()))
-                    <x-button
-                        id="delete-btn-{{ $user->id }}"
-                        wire:key="delete-btn-{{ $user->id }}"
-                        icon="o-trash"
-                        wire:click="destroy('{{ $user->id }}')"
-                        spinner
-                        class="btn-sm"
-                    />
+
+
+        <div class="flex items-center space-x-2">
+            <x-button
+                id="show-btn-{{ $user->id }}"
+                title="Showing {{ $user->name  }}'s details "
+                wire:key="show-btn-{{ $user->id }}"
+                icon="o-eye"
+                wire:click="showUser('{{ $user->id }}')"
+                spinner
+                class="btn-sm"
+            />
+
+            @can(\App\Enum\Can::BE_AN_ADMIN->value)
+                @unless($user->trashed())
+                    @unless($user->is(auth()->user()))
+                        <x-button
+                            id="delete-btn-{{ $user->id }}"
+                            title="Delete {{ $user->name }}"
+                            wire:key="delete-btn-{{ $user->id }}"
+                            icon="o-trash"
+                            wire:click="destroy('{{ $user->id }}')"
+                            spinner
+                            class="btn-sm"
+                        />
+                    @endunless
+                @else
+                    <x-button icon="o-arrow-path-rounded-square"
+                              title="Restore {{ $user->name }}"
+                              wire:click="restore({{ $user->id }})"
+                              spinner
+                              class="btn-sm btn-success btn-ghost"/>
                 @endunless
-            @else
-                <x-button icon="o-arrow-path-rounded-square"
-                          wire:click="restore({{ $user->id }})"
-                          spinner
-                          class="btn-sm btn-success btn-ghost" />
-            @endunless
-        @endcan
+            @endcan
+        </div>
         @endscope
 
-   </x-table>
-        {{ $this->users->links(data: ['scrollTo' => false]) }}
-        <livewire:admin.users.delete />
-        <livewire:admin.users.restore />
+    </x-table>
+    {{ $this->users->links(data: ['scrollTo' => false]) }}
+    <livewire:admin.users.delete/>
+    <livewire:admin.users.restore/>
+    <livewire:admin.users.show/>
 </div>
