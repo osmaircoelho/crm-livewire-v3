@@ -22,9 +22,10 @@ it('should add a key impersonate to the session  with the given user', function 
         ->call('impersonate', $this->user->id);
 
     assertTrue(session()->has('impersonate'));
+    assertTrue(session()->has('impersonator'));
 
     assertSame(session()->get('impersonate'), $this->user->id);
-
+    assertSame(session()->get('impersonator'), $this->admin->id);
 });
 
 it('should make sure that we are logged with the impersonated user', function () {
