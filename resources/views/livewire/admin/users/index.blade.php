@@ -86,6 +86,16 @@
                             spinner
                             class="btn-sm"
                         />
+
+                        <x-button
+                            id="impersonate-btn-{{ $user->id }}"
+                            title="Impersonate {{ $user->name }}"
+                            wire:key="impersonate-btn-{{ $user->id }}"
+                            icon="o-user-circle"
+                            wire:click="impersonate('{{ $user->id }}')"
+                            spinner
+                            class="btn-sm"
+                        />
                     @endunless
                 @else
                     <x-button icon="o-arrow-path-rounded-square"
@@ -103,4 +113,5 @@
     <livewire:admin.users.delete/>
     <livewire:admin.users.restore/>
     <livewire:admin.users.show/>
+    <livewire:admin.users.impersonate />
 </div>
