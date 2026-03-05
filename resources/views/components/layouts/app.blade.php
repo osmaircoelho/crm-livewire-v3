@@ -14,7 +14,7 @@
 @if(session('impersonate'))
     <livewire:admin.user.stop-impersonate/>
 @endif
-
+<livewire:dev.login/>
     {{-- NAVBAR mobile only --}}
     <x-nav sticky class="lg:hidden">
         <x-slot:brand>
